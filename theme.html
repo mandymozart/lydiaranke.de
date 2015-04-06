@@ -47,12 +47,23 @@
             font-family: 'Cutive Mono', 'Courir', monospace;
         }
 
+        #page {
+            margin-top: 60px;
+        }
+
+
         a {
             color: #000;
         }
 
         a:hover {
             color: #000;
+        }
+
+        .navbar {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
         }
 
         /* Flex Video */
@@ -90,7 +101,8 @@
 <body data-urlencoded-name="{URLEncodedName}"
       class="{select:Layout}{block:IndexPage} index-page{/block:IndexPage}{block:PermalinkPage} permalink{/block:PermalinkPage}{block:SearchPage} search-page{block:NoSearchResults} no-results{/block:NoSearchResults}{/block:SearchPage}{block:HideHeaderImage} no-header-image{/block:HideHeaderImage}{block:NoStretchHeaderImage} contain-header-image{/block:NoStretchHeaderImage}">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<!--
+<nav class="navbar navbar-default navbar-fixed-top hidden-sm hidden-xs">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -100,7 +112,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span class="fa fa-home"></span></a>
+            <a class="navbar-brand" href="#"></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -116,9 +128,9 @@
         </div>
     </div>
 </nav>
+-->
 
-
-<div class="container">
+<div id="page" class="container">
 
     <div class="row">
         <div class="col-md-4 col-xs-12">
@@ -126,8 +138,8 @@
             <img class="img-responsive" src="{HeaderImage}" alt="" class="img-responsive"/>
             {/block:ShowHeaderImage}
             <figure class="avatar-wrapper{block:IndexPage} animate{/block:IndexPage}">
-                <a href="/" style="background-image: url({PortraitURL-128})" class="user-avatar"><img
-                        src="{PortraitURL-128}" alt="" class="print-only invisible"></a>
+                <img
+                        src="{PortraitURL-128}" alt="" class="">
             </figure>
 
             <div class="title-group{block:IndexPage} animate{/block:IndexPage}">
@@ -220,6 +232,7 @@
 
             {block:Video}
             <figure{block:Caption} class="with-caption"{/block:Caption}>
+            <div class="modal"></div>
             <div class="video-player">
                 {Video-700}
             </div>
@@ -298,6 +311,25 @@
     <footer class="footer container">
         <small>{block:ShowTitle}{Title} {/block:ShowTitle}&copy; {CopyrightYears}</small>
     </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="videoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
     var Optica = {};
