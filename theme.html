@@ -16,13 +16,10 @@
     {/block:Description}
 
     {block:Hidden}
-    <meta name="if:Sliding header" content="1">
-    <meta name="if:Collapse navigation" content="1">
-    <meta name="if:Endless scrolling" content="1">
-    <meta name="select:Layout" content="regular" title="Regular">
-    <meta name="select:Layout" content="narrow" title="Narrow">
-    <meta name="select:Layout" content="grid" title="Grid">
-    <meta name="text:Disqus shortname" content="">
+    <meta name="if:Search field" content="0">
+    <meta name="if:Modal caption" content="0">
+    <meta name="if:Modal footer" content="0">
+    <meta name="if:Credits" content="1">
     <meta name="text:Google analytics ID" content="">
     {/block:Hidden}
 
@@ -59,11 +56,25 @@
         a:hover {
             color: #000;
         }
+        a:focus {
+            outline:none;
+        }
 
         .navbar {
             -webkit-box-shadow: none;
             -moz-box-shadow: none;
             box-shadow: none;
+        }
+
+        h1{
+            font-size: 26px;
+        }
+        h2,h3,h4,h5,h6 {
+            font-size: 16px;
+        }
+        h2 {
+            margin-top:0;
+            margin-bottom:26px;
         }
 
         /* Flex Video */
@@ -93,20 +104,18 @@
         }
 
         /* Custom CSS */
-        {
-            CustomCSS
-        }
+        {CustomCSS}
     </style>
 </head>
 <body data-urlencoded-name="{URLEncodedName}"
       class="{select:Layout}{block:IndexPage} index-page{/block:IndexPage}{block:PermalinkPage} permalink{/block:PermalinkPage}{block:SearchPage} search-page{block:NoSearchResults} no-results{/block:NoSearchResults}{/block:SearchPage}{block:HideHeaderImage} no-header-image{/block:HideHeaderImage}{block:NoStretchHeaderImage} contain-header-image{/block:NoStretchHeaderImage}">
 <!-- Navigation -->
-<!--
+{block:IfSearchField}
 <nav class="navbar navbar-default navbar-fixed-top hidden-sm hidden-xs">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+                    data-target="#navbarCollapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -115,7 +124,7 @@
             <a class="navbar-brand" href="#"></a>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav navbar-nav">
 
             </ul>
@@ -128,7 +137,7 @@
         </div>
     </div>
 </nav>
--->
+{/block:IfSearchField}
 
 <div id="page" class="container">
 
@@ -137,7 +146,7 @@
             {block:ShowHeaderImage}
             <img class="img-responsive" src="{HeaderImage}" alt="" class="img-responsive"/>
             {/block:ShowHeaderImage}
-            <figure class="avatar-wrapper{block:IndexPage} animate{/block:IndexPage}">
+            <figure class="hidden avatar-wrapper{block:IndexPage} animate{/block:IndexPage}">
                 <img
                         src="{PortraitURL-128}" alt="" class="">
             </figure>
@@ -159,203 +168,211 @@
 
             <!-- Main -->
             <main role="main" class="content">
-        {block:SearchPage}
-        <div class="result">
-            <p>{lang:Found SearchResultCount results for SearchQuery 2}</p>
-            {block:NoSearchResults}<p>{lang:No results for SearchQuery 2}</p>{/block:NoSearchResults}
-        </div>
-        {/block:SearchPage}
-
-        {block:TagPage}<div class="result"><p>{lang:TagResultCount posts tagged Tag 3}</p></div>{/block:TagPage}
-
-        {block:Posts}
-        <article class="post {PostType} {TagsAsClasses}">
-            <!-- {block:Date}
-            {block:NewDayDate}<p>{DayOfWeek}, {Month} {DayOfMonth}, {Year}</p>{/block:NewDayDate}
-            {block:SameDayDate}<p>{DayOfWeek}, {Month} {DayOfMonth}, {Year}</p>{/block:SameDayDate}
-            {/block:Date}
-            -->
-
-            {block:Text}
-            {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
-            {block:Body}
-            <div class="body-text">
-                {Body}
-            </div>
-            {/block:Body}
-            {/block:Text}
-
-            {block:Quote}
-            <blockquote class="words {Length}">&#8220;{Quote}&#8221;</blockquote>
-            {block:Source}<p class="source">&mdash; {Source}</p>{/block:Source}
-            {/block:Quote}
-
-            {block:Link}
-            <h2><a href="{URL}">{Target}>{Name}</a></h2>
-            {block:Description}<div class="caption">{Description}</div>{/block:Description}
-            {/block:Link}
-
-            {block:Audio}
-            {block:AlbumArt}<img src="{AlbumArtURL}"   class="img-responsive" alt="">{/block:AlbumArt}
-            <div class="audio-player">
-                {block:AudioEmbed}
-                {AudioEmbed color="white"}
-                {/block:AudioEmbed}
-                {block:AudioPlayer}{AudioPlayerBlack}{/block:AudioPlayer}
-            </div>
-            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
-            {/block:Audio}
-
-            {block:Photo}
-            <figure class="{block:HighRes}high-res{/block:HighRes}{block:Caption} with-caption{/block:Caption}" data-photo-width="{PhotoWidth-HighRes}">
-                {LinkOpenTag}<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="img-responsive" width="{PhotoWidth-HighRes}" height="{PhotoHeight-HighRes}">{LinkCloseTag}
-                {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
-            </figure>
-            {/block:Photo}
-
-            {block:Photoset}
-            <figure{block:Caption} class="with-caption"{/block:Caption}>
-            {block:Photos}
-            <img src="{PhotoURL-HighRes}" class="img-responsive" alt="{PhotoAlt}"/>
-            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
-            {/block:Photos}
-            {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
-            </figure>
-            {/block:Photoset}
-
-            {block:Panorama}
-            <figure{block:Caption} class="with-caption"{/block:Caption}>
-            {LinkOpenTag}<img src="{PhotoURL-Panorama}" class="img-responsive" width="{PhotoWidth-Panorama}" height="{PhotoHeight-Panorama}" alt="{PhotoAlt}" />{LinkCloseTag}
-            {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
-            </figure>
-            {/block:Panorama}
-
-            {block:Video}
-            <figure{block:Caption} class="with-caption"{/block:Caption}>
-            <div class="modal"></div>
-            <div class="video-player">
-                {Video-700}
-            </div>
-            {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
-            </figure>
-            {/block:Video}
-
-            {block:Chat}
-            {block:Title}<h2>{Title}</h2>{/block:Title}
-            <ul class="conversation">
-                {block:Lines}
-                <li class="line {Alt}">
-                    {block:Label}<span class="person">{Label}</span>{/block:Label}
-                    <span class="person-said">{Line}</span>
-                </li>
-                {/block:Lines}
-            </ul>
-            {/block:Chat}
-
-            {block:Answer}
-            <section class="question">
-                <img src="{AskerPortraitURL-48}">
-                <div class="asker">{Asker} asked:</div>
-                <div class="asker-question">
-                    {Question}
+                {block:SearchPage}
+                <div class="result">
+                    <p>{lang:Found SearchResultCount results for SearchQuery 2}</p>
+                    {block:NoSearchResults}<p>{lang:No results for SearchQuery 2}</p>{/block:NoSearchResults}
                 </div>
-            </section>
-            {block:Answerer}
-            <section class="answerer">
-                <img src="{AnswererPortraitURL-48}">
-                <p>{Answerer} answered:</p>
-                <div class="answerer-answer">
-                    {Answer}
+                {/block:SearchPage}
+
+                {block:TagPage}<div class="result"><p>{lang:TagResultCount posts tagged Tag 3}</p></div>{/block:TagPage}
+
+                {block:Posts}
+                <article class="post {PostType} {TagsAsClasses}">
+                    <!-- {block:Date}
+                    {block:NewDayDate}<p>{DayOfWeek}, {Month} {DayOfMonth}, {Year}</p>{/block:NewDayDate}
+                    {block:SameDayDate}<p>{DayOfWeek}, {Month} {DayOfMonth}, {Year}</p>{/block:SameDayDate}
+                    {/block:Date}
+                    -->
+
+                    {block:Text}
+                    {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+                    {block:Body}
+                    <div class="body-text">
+                        {Body}
+                    </div>
+                    {/block:Body}
+                    {/block:Text}
+
+                    {block:Quote}
+                    <blockquote class="words {Length}">&#8220;{Quote}&#8221;</blockquote>
+                    {block:Source}<p class="source">&mdash; {Source}</p>{/block:Source}
+                    {/block:Quote}
+
+                    {block:Link}
+                    <h2><a class="video-link" href="{URL}" data-toggle="modal" data-target="#videoModal" data-href="{URL}" data-title="{Name}" target="_blank">{Name}</a></h2>
+                    <!-- {block:Description}<div class="caption">{Description}</div>{/block:Description} -->
+                    {/block:Link}
+
+                    {block:Audio}
+                    {block:AlbumArt}<img src="{AlbumArtURL}"   class="img-responsive" alt="">{/block:AlbumArt}
+                    <div class="audio-player">
+                        {block:AudioEmbed}
+                        {AudioEmbed color="white"}
+                        {/block:AudioEmbed}
+                        {block:AudioPlayer}{AudioPlayerBlack}{/block:AudioPlayer}
+                    </div>
+                    {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+                    {/block:Audio}
+
+                    {block:Photo}
+                    <figure class="{block:HighRes}high-res{/block:HighRes}{block:Caption} with-caption{/block:Caption}" data-photo-width="{PhotoWidth-HighRes}">
+                        {LinkOpenTag}<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="img-responsive" width="{PhotoWidth-HighRes}" height="{PhotoHeight-HighRes}">{LinkCloseTag}
+                        {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
+                    </figure>
+                    {/block:Photo}
+
+                    {block:Photoset}
+                    <figure{block:Caption} class="with-caption"{/block:Caption}>
+                    {block:Photos}
+                    <img src="{PhotoURL-HighRes}" class="img-responsive" alt="{PhotoAlt}"/>
+                    {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+                    {/block:Photos}
+                    {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
+                    </figure>
+                    {/block:Photoset}
+
+                    {block:Panorama}
+                    <figure{block:Caption} class="with-caption"{/block:Caption}>
+                    {LinkOpenTag}<img src="{PhotoURL-Panorama}" class="img-responsive" width="{PhotoWidth-Panorama}" height="{PhotoHeight-Panorama}" alt="{PhotoAlt}" />{LinkCloseTag}
+                    {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
+                    </figure>
+                    {/block:Panorama}
+
+                    {block:Video}
+                    <figure{block:Caption} class="with-caption"{/block:Caption}>
+
+                    {block:Caption}<figcaption class="caption">{Caption}</figcaption>{/block:Caption}
+                    </figure>
+                    {/block:Video}
+
+                    {block:Chat}
+                    {block:Title}<h2>{Title}</h2>{/block:Title}
+                    <ul class="conversation">
+                        {block:Lines}
+                        <li class="line {Alt}">
+                            {block:Label}<span class="person">{Label}</span>{/block:Label}
+                            <span class="person-said">{Line}</span>
+                        </li>
+                        {/block:Lines}
+                    </ul>
+                    {/block:Chat}
+
+                    {block:Answer}
+                    <section class="question">
+                        <img src="{AskerPortraitURL-48}">
+                        <div class="asker">{Asker} asked:</div>
+                        <div class="asker-question">
+                            {Question}
+                        </div>
+                    </section>
+                    {block:Answerer}
+                    <section class="answerer">
+                        <img src="{AnswererPortraitURL-48}">
+                        <p>{Answerer} answered:</p>
+                        <div class="answerer-answer">
+                            {Answer}
+                        </div>
+                    </section>
+                    {/block:Answerer}
+                    <div class="replies">{Replies}</div>
+                    {/block:Answer}
+
+                    {block:IndexPage}
+                    <!--
+                    {LikeButton color="grey"}
+                    {ReblogButton color="grey"}
+                    <p><a href="{Permalink}" class="permalink">{lang:Permalink}</a></p>
+                    -->
+                    {/block:IndexPage}
+
+                </article>
+                {/block:Posts}
+
+                {block:PermalinkPagination}
+                <div class="pagination">
+                    {block:PreviousPost}<a class="prev"href="{PreviousPost}">{lang:Previous post}</a>{/block:PreviousPost}
+                    {block:NextPost}<a class="next" href="{NextPost}">{lang:Next post}</a>{/block:NextPost}
                 </div>
-            </section>
-            {/block:Answerer}
-            <div class="replies">{Replies}</div>
-            {/block:Answer}
+                {/block:PermalinkPagination}
 
-            {block:IndexPage}
-            <!--
-            {LikeButton color="grey"}
-            {ReblogButton color="grey"}
-            <p><a href="{Permalink}" class="permalink">{lang:Permalink}</a></p>
-            -->
-            {/block:IndexPage}
+                {block:Pagination}
+                <div class="pagination">
+                    {block:PreviousPage}<a class="prev" href="{PreviousPage}">{lang:Previous}</a>{/block:PreviousPage}
 
-        </article>
-        {/block:Posts}
+                    {block:JumpPagination length="5"}
+                    {block:CurrentPage}<span class="current-page">{PageNumber}</span>{/block:CurrentPage}
+                    {block:JumpPage}<a class="jump-page" href="{URL}">{PageNumber}</a>{/block:JumpPage}
+                    {/block:JumpPagination}
 
-        {block:PermalinkPagination}
-        <div class="pagination">
-            {block:PreviousPost}<a class="prev"href="{PreviousPost}">{lang:Previous post}</a>{/block:PreviousPost}
-            {block:NextPost}<a class="next" href="{NextPost}">{lang:Next post}</a>{/block:NextPost}
-        </div>
-        {/block:PermalinkPagination}
-
-        {block:Pagination}
-        <div class="pagination">
-            {block:PreviousPage}<a class="prev" href="{PreviousPage}">{lang:Previous}</a>{/block:PreviousPage}
-
-            {block:JumpPagination length="5"}
-            {block:CurrentPage}<span class="current-page">{PageNumber}</span>{/block:CurrentPage}
-            {block:JumpPage}<a class="jump-page" href="{URL}">{PageNumber}</a>{/block:JumpPage}
-            {/block:JumpPagination}
-
-            {block:NextPage}<a class="next" href="{NextPage}">{lang:Next}</a>{/block:NextPage}
-        </div>
-        {/block:Pagination}
-    </main>
+                    {block:NextPage}<a class="next" href="{NextPage}">{lang:Next}</a>{/block:NextPage}
+                </div>
+                {/block:Pagination}
+            </main>
 
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer class="footer container">
-        <small>{block:ShowTitle}{Title} {/block:ShowTitle}&copy; {CopyrightYears}</small>
-    </footer>
 
-    <!-- Modals -->
-    <div class="modal" id="videoModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Modal title</h4>
-                </div>
-                <div class="modal-body">
+<!-- Footer -->
+{block:IfCredits}
+<footer class="footer container-fluid">
+    <small class="pull-right">{block:ShowTitle}{Title} {/block:ShowTitle}&copy; {CopyrightYears} Crafted by <a href="http://www.wearepictures.com" target="_blank"><img src="http://www.budzillus.de/wp-content/themes/din-theme/images/wearepictures-logo-952e2e.png" /></a></small>
+</footer>
+{/block:IfCredits}
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+<!-- Modals -->
+<div class="modal" id="videoModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                {block:IfVideoTitle}<h4 class="modal-title">Untitled</h4>{/block:IfVideoTitle}
             </div>
+            <div class="modal-body">
+                <div class="flex-video">
+                    <iframe src="" width="500" height="373"
+                            frameborder="0"
+                            webkitallowfullscreen
+                            mozallowfullscreen
+                            allowfullscreen></iframe>
+                </div>
+                {block:IfModalCaption}<div class="modal-caption"></div>{/block:IfModalCaption}
+            </div>
+            {block:IfModalFooter}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            {/block:IfModalFooter}
         </div>
     </div>
+</div>
 
-<script>
-    var Optica = {};
-    Optica.ENDLESS_SCROLLING = {block: IfEndlessScrolling}
-    true
-    {
-        /block:IfEndlessScrolling}{block:IfNotEndlessScrolling}false{/
-        block:IfNotEndlessScrolling
-    }
-    ;
-    Optica.LAYOUT = "{select:Layout}";
-    Optica.GRID_LAYOUT = (Optica.LAYOUT === 'grid');
-    Optica.TITLE_COLOR = "{TitleColor}";
-    Optica.ACCENT_COLOR = "{AccentColor}";
-    Optica.BACKGROUND_COLOR = "{BackgroundColor}";
-    Optica.ENDLESS_NOTES_SCROLLING = {block: IfDisqusShortname}
-    false
-    {
-        /block:IfDisqusShortname}{block:IfNotDisqusShortname}true{/
-        block:IfNotDisqusShortname
-    }
-    ;
-</script>
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="http://static.tumblr.com/vr9xgox/sBgmmjhyw/jquery-1.9.1.min.js"%3E%3C/script%3E'));</script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+<script>
+    /* link into modal events */
+    $('#videoModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var videoURI = button.data('href') // Extract info from data-* attributes
+        var match = videoURI.match(/vimeo.com\/(\d+)/)
+        if (match) {
+            var videoID = match[1];
+        }
+        videoEmbedURI = 'https://player.vimeo.com/video/' + videoID;
+        var title = button.data('title') // Extract video name from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-caption').text(title)
+        modal.find('.modal-body iframe').attr('src',videoEmbedURI)
+    })
+</script>
 
 {block:IfGoogleAnalyticsID}
 <script>
