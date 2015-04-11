@@ -103,6 +103,10 @@
             .flex-video { padding-top: 0; }
         }
 
+        #tumblr_controls {
+            display:none;
+        }
+
         /* Custom CSS */
         {CustomCSS}
     </style>
@@ -126,7 +130,7 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav navbar-nav">
-
+                <li><a href="#imprint" data-toggle="modal" data-target="#imprintModal">Imprint</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search" action="/search" method="get" id="search">
                 <div class="form-group">
@@ -139,7 +143,7 @@
 </nav>
 {/block:IfSearchField}
 
-<div id="page" class="container">
+<div id="page" class="container-fluid">
 
     <div class="row">
         <div class="col-md-4 col-xs-12">
@@ -315,13 +319,6 @@
 </div>
 
 
-<!-- Footer -->
-{block:IfCredits}
-<footer class="footer container-fluid">
-    <small class="pull-right">{block:ShowTitle}{Title} {/block:ShowTitle}&copy; {CopyrightYears} Crafted by <a href="http://www.wearepictures.com" target="_blank"><img src="http://www.budzillus.de/wp-content/themes/din-theme/images/wearepictures-logo-952e2e.png" /></a></small>
-</footer>
-{/block:IfCredits}
-
 <!-- Modals -->
 <div class="modal" id="videoModal">
     <div class="modal-dialog modal-lg">
@@ -339,6 +336,33 @@
                             allowfullscreen></iframe>
                 </div>
                 {block:IfModalCaption}<div class="modal-caption"></div>{/block:IfModalCaption}
+            </div>
+            {block:IfModalFooter}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            {/block:IfModalFooter}
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="imprintModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Imprint</h4>
+            </div>
+            <div class="modal-body">
+                <p>{block:ShowTitle}{Title} {/block:ShowTitle}&copy; {CopyrightYears}</p>
+
+                <p>Lydia Ranke übernimmt keine Gewähr für die Vollständigkeit, Richtigkeit und Aktualität der hier bereitgestellten Informationen.
+                    Eine Haftung für die Inhalte externer verlinkter Seiten wird nicht übernommen. Die auf dieser Webseite veröffentlichten
+                    Inhalte sind urheberrechtlich geschützt. Lydia Ranke bzw. die jeweilig angegebenen Rechteinhaber behalten sich sämtliche Urheberrechte vor.
+                    Das Anfertigen von Kopien in elektronischer oder gegenständlicher Form, jedwede Art der Bearbeitung sowie Verbindung mit
+                    anderen Datenbeständen bedarf der vorherigen schriftlichen Zustimmung.</p>
+
+                <p>Design und Umsetzung: <a href="http://www.wearepictures.com" target="_blank"><img src="http://cdn.wearepictures.com/f/wearepictures-logo-952e2e.png" /></a>
             </div>
             {block:IfModalFooter}
             <div class="modal-footer">
