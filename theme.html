@@ -45,7 +45,7 @@
         }
 
         #page {
-            margin-top: 60px;
+            margin: 80px;
         }
 
 
@@ -114,7 +114,6 @@
 <body data-urlencoded-name="{URLEncodedName}"
       class="{select:Layout}{block:IndexPage} index-page{/block:IndexPage}{block:PermalinkPage} permalink{/block:PermalinkPage}{block:SearchPage} search-page{block:NoSearchResults} no-results{/block:NoSearchResults}{/block:SearchPage}{block:HideHeaderImage} no-header-image{/block:HideHeaderImage}{block:NoStretchHeaderImage} contain-header-image{/block:NoStretchHeaderImage}">
 <!-- Navigation -->
-{block:IfSearchField}
 <nav class="navbar navbar-default navbar-fixed-top hidden-sm hidden-xs">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -129,19 +128,21 @@
         </div>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="#imprint" data-toggle="modal" data-target="#imprintModal">Imprint</a></li>
             </ul>
+            {block:IfSearchField}
             <form class="navbar-form navbar-right" role="search" action="/search" method="get" id="search">
                 <div class="form-group">
                     <input type="text" class="form-control" name="q" placeholder="{lang:Search}" value="{SearchQuery}">
                 </div>
                 <button type="submit" class="btn btn-default"><span class="fa fa-search"></span></button>
             </form>
+            {/block:IfSearchField}
         </div>
     </div>
 </nav>
-{/block:IfSearchField}
+
 
 <div id="page" class="container-fluid">
 
@@ -168,7 +169,7 @@
         </div>
 
 
-        <div class="col-md-8 col-xs-12">
+        <div class="col-md-7 col-md-offset-1 col-xs-12">
 
             <!-- Main -->
             <main role="main" class="content">
